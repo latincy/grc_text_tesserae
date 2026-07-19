@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5] - 2026-07-19
+
+### Fixed
+- Removed non-Greek editorial contamination from 54 lines (Libanius, Gregory of Nazianzus, Polybius, Arrian) that had bled in from scanned critical editions:
+  - Excised Latin editorial rubrics/argumenta and running page-headers (Foerster edition) interleaved in the Libanius declamations and orations.
+  - Removed edition page/reference markers (Reiske, Morell, Sieber, Boissonade) inserted mid-text, rejoining the Greek words they had split (e.g. `φθοR III 337 ρὰν` → φθορὰν; `ἈκαMor δημίαν` → Ἀκαδημίαν).
+  - Excised English translation glosses that had crept into Gregory's *Theological Orations*.
+  - Corrected OCR errors where Greek had been rendered in Latin script (`co`/`cb`/`ob` → ὦ, `Mr` → μή, `iva` → ἵνα, `pous` → -ρους) and dittographies (`γείγείτων` → γείτων, `τεττίτεττίγων` → τεττίγων).
+  - Deleted a transliterated apparatus note in Polybius; removed stray `#x003E;` entity artifacts.
+  - Split two Arrian sections (*Anab.* 7.24.1–2) that had been merged into a single line.
+- Known remaining: 5 severely-mangled Libanius lines whose base text is entangled with apparatus criticus await reconstruction against Foerster; pure-Greek OCR errors in Libanius are not yet systematically addressed.
+
 ## [0.4] - 2026-07-18
 
 ### Changed
