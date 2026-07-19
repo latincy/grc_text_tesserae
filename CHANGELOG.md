@@ -5,7 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
-- Wireframe `texts/metadata/metadata.json` (per-file metadata, keyed by `.tess` filename; matches the Latin corpus's metadata location and CLTK Readers convention). Extended authority-ready schema — `author`, `title`, `date`, `genre`, `mode`, `wikidata`, `tlg_author`, `tlg_work`, `edition` — with empty values pending population from local/Tesserae metadata and Wikidata/TLG lookups. Exact 1:1 coverage with the 923 text files.
+- `texts/metadata/metadata.json` (per-file metadata, keyed by `.tess` filename; matches the Latin corpus's metadata location and CLTK Readers convention). Extended authority-ready schema — `author`, `title`, `date`, `genre`, `mode`, `wd_author`, `wd_title`, `tlg_author`, `tlg_work`, `edition` — exact 1:1 coverage with the 923 text files.
+- Partially populated from a Wikidata-derived bootstrap sheet: `author` (670), `wd_author` WikiData URI (671), and `mode` (725, prose/verse). `title`/`wd_title` await work-level Wikidata data; 198 files (incl. recent Nonnus/Dionysius splits and naming-granularity gaps) are not yet in the sheet and remain empty; `date`, `genre`, `tlg_*`, `edition` pending.
 
 ## [0.5.1] - 2026-07-19
 
