@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- Wireframe `texts/metadata/metadata.json` (per-file metadata, keyed by `.tess` filename; matches the Latin corpus's metadata location and CLTK Readers convention). Extended authority-ready schema — `author`, `title`, `date`, `genre`, `mode`, `wikidata`, `tlg_author`, `tlg_work`, `edition` — with empty values pending population from local/Tesserae metadata and Wikidata/TLG lookups. Exact 1:1 coverage with the 923 text files.
+
 ## [0.5.1] - 2026-07-19
 
 ### Fixed
