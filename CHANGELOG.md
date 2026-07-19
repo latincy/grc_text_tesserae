@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - `texts/metadata/metadata.json` (per-file metadata, keyed by `.tess` filename; matches the Latin corpus's metadata location and CLTK Readers convention). Extended authority-ready schema — `author`, `title`, `date`, `genre`, `mode`, `wd_author`, `wd_title`, `tlg_author`, `tlg_work`, `edition` — exact 1:1 coverage with the 923 text files.
-- Partially populated from a Wikidata-derived bootstrap sheet: `author` (670), `wd_author` WikiData URI (671), and `mode` (725, prose/verse). `title`/`wd_title` await work-level Wikidata data; 198 files (incl. recent Nonnus/Dionysius splits and naming-granularity gaps) are not yet in the sheet and remain empty; `date`, `genre`, `tlg_*`, `edition` pending.
+- Partially populated from a Wikidata-derived bootstrap sheet: `author` (798), `wd_author` Wikidata URI (799), and `mode` (866, prose/verse). Exact per-file matches plus author-level reconciliation for renamed/split files (recent Nonnus/Dionysius splits, plus granularity differences like Hyperides speeches) — an author shares one Wikidata entity, so `author`/`wd_author` inherit safely and `mode` where unanimous per author. `title`/`wd_title` await work-level Wikidata data; 57 files whose authors are absent from the sheet (e.g. `new_testament`, `eusebius_caesarea`, `arrian`, `libanius`) remain empty; `date`, `genre`, `tlg_*`, `edition` pending.
 
 ## [0.5.1] - 2026-07-19
 
