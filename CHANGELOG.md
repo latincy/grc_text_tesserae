@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.1] - 2026-07-19
+
+### Fixed
+- Repaired mojibake quotation marks: 96 stray C1 control characters (`U+009C`/`U+009D`) — the corrupted tails of the corpus's curly quotes `“` / `”` — restored to `U+201C` / `U+201D` in Pindar and Theocritus (opening/closing direct speech). Consistent with the sibling Latin corpus's policy of preserving legitimate curly quotes and repairing mojibake to its intended Unicode rather than straightening.
+- Removed 73 stray `U+FEFF` (zero-width no-break space) artifacts from 4 files (Aelian, Demetrius, Philostratus).
+
 ## [0.5] - 2026-07-19
 
 ### Fixed
