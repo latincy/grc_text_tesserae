@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.1] - 2026-07-20
+
+### Fixed
+- Removed non-original Arabic-digit artifacts from body text (270 edits across 39 files). Ancient Greek used alphabetic numerals, so body digits are modern intrusions:
+  - Systematic edition markers, deleted (word halves rejoin): Polybius line/quote markers `"N` (134, e.g. `Καρ"1χηδονίοις` → Καρχηδονίοις), scholium sigla `ΣN` (27), paragraph markers `%N` (33; a space where one sat between two words, e.g. `γάρ%5περὶ` → γάρ περὶ), apparatus `[N` (1).
+  - In-word OCR stray digits, deleted and rejoined (75) — overwhelmingly `σ`+digit insertions (`ὥσ2περ` → ὥσπερ, `τοιόσ2δε` → τοιόσδε), applied only when the rejoin yields a plausible all-Greek token.
+  - Held for source review (documented, unchanged): ~1,850 transliterated source-references (`ηομ. ιλ. X.Y`, `ναυξκ N`, `ηες. ωδ N`, concentrated in Athenaeus), `#N` markers (entangled with geometric point-labels and citations), and in-word digits that replaced a letter (`0`→ο) or mark a missing space.
+  - Transform: `utils/fix_digits.py`. Validator passes (923 files).
+- Note: removing markers exposed a few pre-existing mis-ordered breathing marks (a combining mark printed before its base letter, e.g. `̔Ρ` for Ῥ) — part of a broader ~735-case combining-mark issue to be normalized in a separate pass.
+
 ## [0.6] - 2026-07-20
 
 ### Changed
