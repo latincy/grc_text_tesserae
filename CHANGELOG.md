@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.1] - 2026-07-20
+
+### Added
+- Per-`.tess` word-frequency lists: each `stats/files/<name>.json` now carries an embedded `wordlist` object (`word: count`, ordered most- to least-frequent) so its **tail is the hapax legomena** — where OCR errors and contamination surface (e.g. orphaned elision marks `’ὅσοι`, embedded obelus `’†πεμψεν`, replacement-char corruption `�ἰρις`). A corpus-wide `stats/corpus_wordlist.tsv` (`word<TAB>count`, ~450K rows) is kept as a flat file, too large to embed. Generator: `utils/build_stats.py`.
+
+### Changed
+- Renamed the collection to the **LatinCy Tesserae Ancient Greek Corpus** (from "CLTK Tesserae Ancient Greek Corpus") in the README, `citation.bib`, and `stats/corpus_info.json`.
+- Refined `build_stats.py` tokenization to strip structural/editorial punctuation from token edges (fullwidth/CJK/editorial brackets, dashes, obelus †, quotation marks) while **keeping** the elision apostrophe `’` (U+2019, part of the word) and digits / stray combining marks (OCR-error signal). This drops non-word tokens from the vocabulary: corpus vocab 458,441 → 454,636, hapax 235,246 → 232,015. `stats/corpus_info.json` and every `stats/files/<name>.json` regenerated accordingly. Corpus text is unchanged.
+
 ## [0.7.0] - 2026-07-20
 
 ### Added

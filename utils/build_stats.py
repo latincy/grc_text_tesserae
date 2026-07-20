@@ -8,7 +8,14 @@ paragraph/sentence counts of a plain-text corpus.
 
 Writes:
   stats/corpus_info.json          collection-level totals
-  stats/files/<name>.json         per-.tess statistics (incl. word counts)
+  stats/files/<name>.json         per-.tess statistics, INCLUDING an embedded
+                                  `wordlist` object (word -> count), ordered
+                                  most- to least-frequent so the TAIL is the
+                                  hapax legomena — where OCR errors and
+                                  contamination tend to surface
+  stats/corpus_wordlist.tsv       corpus-wide word-frequency list (word<TAB>count);
+                                  kept as a flat file because it is far too large
+                                  (~450K rows) to embed
 
 Tokenization: whitespace split, stripping edge punctuation but KEEPING the
 elision apostrophe U+2019 (it is part of the word, e.g. ἀλλ’). Vocabulary is
@@ -16,7 +23,6 @@ counted case-insensitively; lexical diversity follows the referenced post
 (words / vocab = mean tokens per type).
 """
 
-import glob
 import json
 import re
 import datetime
@@ -26,10 +32,30 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 TEXTS = ROOT / "texts"
 STATS = ROOT / "stats"
-VERSION = "0.7.0"
+VERSION = "0.7.1"
 
-# strip edge punctuation; keep U+2019 (elision, part of the word) and letters/marks
-STRIP = "…·.,:;!?«»—“”\"'()[]<>‘·*"
+
+def ranked(vocab: "Counter") -> list[tuple[str, int]]:
+    """(word, count) pairs, most- to least-frequent (ties alphabetical); tail = hapaxes."""
+    return sorted(vocab.items(), key=lambda kv: (-kv[1], kv[0]))
+
+
+def write_wordlist(path: Path, vocab: "Counter") -> None:
+    """Flat word<TAB>count file (used for the corpus-wide list)."""
+    path.write_text("".join(f"{w}\t{c}\n" for w, c in ranked(vocab)), encoding="utf-8")
+
+# Strip structural/editorial punctuation and symbols from token edges so word
+# counts reflect actual words. KEEP U+2019 (elision, part of the word), and keep
+# digits / Latin letters / stray combining marks — these are OCR/contamination
+# signal that should surface in the hapax tail. Includes fullwidth parens and
+# angle brackets (U+FF08/09, U+3008/09) and the editorial obelus (†) found in
+# the corpus.
+STRIP = (
+    "…·.,:;!?*^×¯˘†"          # sentence + editorial punctuation, symbols
+    "\"“”‘«»‹›"               # quotation marks (NOT U+2019 ’, kept)
+    "()[]{}<>（）〈〉《》⟦⟧⟨⟩【】〔〕"   # brackets, incl. fullwidth / CJK / editorial
+    "-–—"                     # hyphens and dashes
+)
 TAG = re.compile(r"^<[^>]+>\t?(.*)$")
 
 
@@ -95,6 +121,9 @@ def main() -> int:
             "lexical_diversity": round4(words / len(vocab)) if vocab else 0,
             "words_per_line": round4(words / lines) if lines else 0,
             "chars": chars,
+            # word -> count, most- to least-frequent; the tail is the hapax
+            # legomena, where OCR errors and contamination surface.
+            "wordlist": {w: c for w, c in ranked(vocab)},
         }
         (STATS / "files" / f"{stem}.json").write_text(
             json.dumps(entry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -106,7 +135,7 @@ def main() -> int:
         works.add(work)
 
     info = {
-        "corpus": "CLTK Tesserae Ancient Greek Corpus",
+        "corpus": "LatinCy Tesserae Ancient Greek Corpus",
         "version": VERSION,
         "generated": datetime.date.today().isoformat(),
         "files": len(files),
@@ -123,8 +152,10 @@ def main() -> int:
     }
     (STATS / "corpus_info.json").write_text(
         json.dumps(info, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_wordlist(STATS / "corpus_wordlist.tsv", corpus_vocab)
 
-    print(f"wrote stats/corpus_info.json and {len(files)} per-file summaries under stats/files/")
+    print(f"wrote stats/corpus_info.json, corpus_wordlist.tsv, and {len(files)} "
+          f"per-file summaries (with embedded wordlists)")
     for k, v in info.items():
         print(f"    {k}: {v}")
     return 0
