@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.6] - 2026-07-20
+
+### Changed
+- Normalized Greek surface encoding across the corpus (921 files, ~375K characters; body text only, citation tags untouched; NFC throughout):
+  - Unified the elision mark, previously spelled six ways, to a single canonical `U+2019`: ASCII `'` (`U+0027`, 240,177), koronis-used-as-elision `᾽` (`U+1FBD`, 5,335 — the corpus used koronis as an apostrophe; 5,313 are word-final `ἀπ᾽`/`ἀλλ᾽`/`καθ᾽`), modifier `ʼ` (`U+02BC`, 1,391), psili `᾿` (`U+1FBF`, 804), and dangling combining smooth breathing (`U+0313`, 7,865). Genuine crasis (composed vowel+breathing, e.g. κἀγώ) is preserved.
+  - Converted the ano teleia from ASCII `:` to `U+00B7` (131,464) — the Unicode-canonical raised dot (`U+0387 GREEK ANO TELEIA` canonically decomposes to `U+00B7 MIDDLE DOT`). 11 digit-adjacent colons are left for a later digit-artifact pass.
+  - Matches the LatinCy grc pipeline's `normalize_surface()` canonical form and standard digital-Greek normalization practice (cf. J. Tauber, *greek-normalisation*). Macrons/breves (vowel-length marks) and quotation marks are intentionally preserved. Transform: `utils/normalize_encoding.py`.
 
 ### Added
 - `texts/metadata/metadata.json` (per-file metadata, keyed by `.tess` filename; matches the Latin corpus's metadata location and CLTK Readers convention). Extended authority-ready schema — `author`, `title`, `date`, `genre`, `mode`, `wd_author`, `wd_title`, `tlg_author`, `tlg_work`, `edition` — exact 1:1 coverage with the 923 text files.
