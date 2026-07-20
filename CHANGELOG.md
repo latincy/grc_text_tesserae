@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.2] - 2026-07-20
+
+### Fixed
+- Repaired mis-ordered Greek diacritics across 302 files (1,197 fixes; body text only, NFC throughout):
+  - Reordered 432 combining marks printed before their base letter (rough breathing, accents, iota subscript), e.g. `̔Ρ` → Ῥ, `“̔́Ο` → `“Ὅ`.
+  - Restored 765 mis-ordered smooth breathings that the v0.6 elision pass had turned into stray apostrophes. v0.6 mapped dangling `U+0313` (and `U+1FBF`/`U+1FBD`) to `U+2019` on the assumption that any leftover was an elision mark on a consonant; but where a smooth breathing was mis-ordered *before* a vowel it did not compose and became a spurious `’` (e.g. `“’Ατυχὴ` → `“Ἀτυχὴ`, `“’́Ηδη` → `“Ἤδη`). Recovery is deterministic — rough breathings stayed combining (`̔`) while smooth became `’`, and a word-initial `’`+vowel is always a smooth breathing (vowel-initial Greek words always carry one; elisions never begin a word). Verified against the pre-v0.6 source (`U+0313` smooth vs `U+0314` rough).
+  - Genuine elisions (`’` after a letter / before a space) are untouched. Held unchanged for source review: ~4,340 orphaned/floating marks with no adjacent base letter, and any `’` that would fall on a non-vowel. Transform: `utils/fix_combining_marks.py`. Validator passes (923 files).
+
 ## [0.6.1] - 2026-07-20
 
 ### Fixed
