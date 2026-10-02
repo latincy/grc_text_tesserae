@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this corpus, please cite it as below."
+type: dataset
+title: "LatinCy Tesserae Ancient Greek Corpus"
+version: "0.7.1"
+date-released: 2026-07-20
+authors:
+  - name: "Tesserae Project"
+  - name: "Classical Language Toolkit"
+  - family-names: Burns
+    given-names: Patrick J.
+    email: patrick@diyclassics.org
+    orcid: "https://orcid.org/0000-0003-2158-866X"
+url: "https://github.com/latincy/grc_text_tesserae"
+repository-code: "https://github.com/latincy/grc_text_tesserae"
+license-url: "https://cse.buffalo.edu/sneps/ubpl.pdf"
+keywords:
+  - corpus
+  - plaintext
+  - ancient greek
+  - natural language processing
+  - nlp
+  - LatinCy
+  - Tesserae
