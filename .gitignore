@@ -143,3 +143,10 @@ cython_debug/
 
 # Project-specific
 temp/
+.claude/
+.idea/
+.vscode/
+stats/
+utils/
+!utils/validate_tess.py
+*_local.json
