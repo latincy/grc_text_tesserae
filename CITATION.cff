@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this corpus, please cite it as below."
 type: dataset
 title: "LatinCy Tesserae Ancient Greek Corpus"
-version: "0.7.1"
-date-released: 2026-07-20
+version: "0.7.2"
+date-released: 2026-10-05
 authors:
   - name: "Tesserae Project"
   - name: "Classical Language Toolkit"

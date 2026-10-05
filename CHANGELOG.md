@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.2] - 2026-10-05
+
+### Added
+- `CITATION.cff`.
+
+### Changed
+- Citation tags: separators normalized to a single space (923 files); double spaces inside tags collapsed (7 files).
+- `utils/` is no longer tracked except `validate_tess.py`.
+
+### Fixed
+- `citation.bib`: valid BibTeX (citekey, missing commas); title and `url` now point to `github.com/latincy/grc_text_tesserae` (the previous CLTK URL did not exist).
+
 ## [0.7.1] - 2026-07-20
 
 ### Changed
